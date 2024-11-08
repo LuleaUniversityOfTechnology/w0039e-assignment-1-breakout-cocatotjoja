@@ -1,10 +1,7 @@
 //#define PLAY_IMPLEMENTATION
-//#define PLAY_USING_GAMEOBJECT_MANAGER
 #include "Game.h"
 
-int DISPLAY_WIDTH = 640;
-int DISPLAY_HEIGHT = 360;
-int DISPLAY_SCALE = 2;
+using namespace Play;
 
 // The entry point for a PlayBuffer program
 void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
@@ -18,7 +15,7 @@ bool MainGameUpdate( float elapsedTime )
 {
 	Play::ClearDrawingBuffer( Play::cBlack );
 	Play::PresentDrawingBuffer();
-	return Play::KeyDown( KEY_ESCAPE );
+	return Play::KeyDown( Play::KEY_ESCAPE );
 	StepFrame(elapsedTime);
 }
 
