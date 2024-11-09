@@ -11,5 +11,8 @@ void SpawnBall()
 void StepFrame(float timePassed)
 {
 	const std::vector<int> ballIds = Play::CollectGameObjectIDsByType(TYPE_BALL);
-	Play::GetGameObject(ballIds);
+	for (int i = 0; i < ballIds.size(); i++)
+	{
+		Play::DrawObject(Play::GetGameObject(ballIds[i]));
+	}
 }
