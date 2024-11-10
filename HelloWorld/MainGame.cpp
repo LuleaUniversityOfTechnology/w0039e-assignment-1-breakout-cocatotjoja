@@ -12,9 +12,9 @@ void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
 bool MainGameUpdate( float elapsedTime )
 {
 	Play::ClearDrawingBuffer( Play::cBlack );
+	StepFrame(elapsedTime);
 	Play::PresentDrawingBuffer();
 	return Play::KeyDown(Play::KEY_ESCAPE );
-	StepFrame(elapsedTime);
 }
 
 // Gets called once when the player quits the game 
