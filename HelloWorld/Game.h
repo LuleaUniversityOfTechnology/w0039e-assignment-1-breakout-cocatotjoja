@@ -7,3 +7,5 @@
 void SpawnBall();
 
 void StepFrame(float timePassed);
+
+void SetupScene();
