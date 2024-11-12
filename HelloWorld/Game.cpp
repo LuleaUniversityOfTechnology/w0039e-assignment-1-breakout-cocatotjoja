@@ -2,6 +2,11 @@
 #define PLAY_USING_GAMEOBJECT_MANAGER
 #include "Play.h"
 #include "Game.h"
+#include "paddle.h"
+
+
+Paddle paddle;
+
 
 void SpawnBall()
 {
@@ -15,7 +20,9 @@ void StepFrame(float timePassed)
 	const std::vector<int> brickIds = Play::CollectGameObjectIDsByType(TYPE_BRICK);
 	const std::vector<int> ballIds = Play::CollectGameObjectIDsByType(TYPE_BALL);
 
-
+	DrawPaddle(paddle);
+	
+	
 	for (int brick : brickIds)
 	{
 		GameObject& currentBrick = Play::GetGameObject(brick);
