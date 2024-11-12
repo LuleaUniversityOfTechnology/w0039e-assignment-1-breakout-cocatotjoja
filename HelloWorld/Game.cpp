@@ -32,14 +32,6 @@ void StepFrame(float timePassed)
 
 	DrawPaddle(paddle);
 
-	for (int ball : ballIds)
-	{
-		GameObject& obj_ball = Play::GetGameObject(ball);
-		if (IsBounce(paddle, obj_ball))
-		{
-			obj_ball.velocity.y *= -1;
-		}
-	}
 
 	
 	
@@ -66,6 +58,12 @@ void StepFrame(float timePassed)
 	for (int ball : ballIds)
 	{
 		GameObject& obj_ball = Play::GetGameObject(ball);
+		
+		if (IsBounce(paddle, obj_ball))
+		{
+			obj_ball.velocity.y *= -1;
+		}
+
 		if ((obj_ball.pos.x > DISPLAY_WIDTH-5) || (obj_ball.pos.x < 0))
 		{
 			obj_ball.velocity.x *= -1;
