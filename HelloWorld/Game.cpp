@@ -40,6 +40,9 @@ void StepFrame(float timePassed)
 
 void SetupScene()
 {
+	
+	const int objectId = Play::CreateGameObject(ObjectType::TYPE_BRICK, { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT - 60 }, 6, "brick");
+	/*
 	for (int x = 0; x < DISPLAY_WIDTH; x++)
 	{
 		for (int y = DISPLAY_HEIGHT; y > 0; y--)
@@ -47,4 +50,5 @@ void SetupScene()
 			const int objectId = Play::CreateGameObject(ObjectType::TYPE_BRICK, { x, y }, 6, "brick");
 		}
 	}
+	*/
 }
