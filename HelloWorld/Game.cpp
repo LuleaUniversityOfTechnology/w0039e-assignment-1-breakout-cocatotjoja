@@ -8,6 +8,7 @@
 Paddle paddle;
 
 
+//Function that creates a ball
 void SpawnBall()
 {
 	const int objectId = Play::CreateGameObject(ObjectType::TYPE_BALL, { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT - 350 }, 4, "ball");
@@ -15,11 +16,15 @@ void SpawnBall()
 	ball.velocity = normalize({ 1, 1 }) * ballSpeed;
 }
 
+
+//Function that loops through the different game objects and updates and renders them to the viewport, takes a float as argument
 void StepFrame(float timePassed)
 {
+	//Make a list of the different ObjectTypes
 	const std::vector<int> brickIds = Play::CollectGameObjectIDsByType(TYPE_BRICK);
 	const std::vector<int> ballIds = Play::CollectGameObjectIDsByType(TYPE_BALL);
 
+	//Checks for user input and update paddle position
 	if (Play::KeyDown(Play::KEY_RIGHT))
 	{
 		MovePaddle(paddle, 2.0);
@@ -34,7 +39,7 @@ void StepFrame(float timePassed)
 
 
 	
-	
+	//Check if brick should be removed, loops through all bricks
 	for (int brick : brickIds)
 	{
 		GameObject& currentBrick = Play::GetGameObject(brick);
@@ -54,7 +59,7 @@ void StepFrame(float timePassed)
 	}
 
 
-	
+	//Checks ball location and collisions, and updates velocity
 	for (int ball : ballIds)
 	{
 		GameObject& obj_ball = Play::GetGameObject(ball);
@@ -80,6 +85,8 @@ void StepFrame(float timePassed)
 }
 
 
+
+// Function that creates the bricks
 void SetupScene()
 {
 	for (int x = 6; x < DISPLAY_WIDTH-5; x+=17)

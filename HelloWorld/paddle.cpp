@@ -1,10 +1,14 @@
 #include "paddle.h"
 
+
+//Function to update paddle position, takes a Paddle and a float value as arguments
 void MovePaddle(Paddle& paddle, float translationX)
 {
 	paddle.position.x += translationX;
 }
 
+
+//Function to draw paddle, takes a Paddel as argument
 void DrawPaddle(Paddle& paddle)
 {
 	const Play::Point2D bottomLeft = { paddle.position.x - (paddle.width / 2), paddle.position.y };
@@ -12,6 +16,8 @@ void DrawPaddle(Paddle& paddle)
 	Play::DrawRect(bottomLeft, topRigth, Play::cRed, true);
 }
 
+
+//Function that checks collision between paddle and object, takes a Paddle and a Object as arguments
 bool IsBounce(const Paddle& paddle, const Play::GameObject& obj)
 {
 	const Play::Point2D bottomLeft = { paddle.position.x - (paddle.width / 2), paddle.position.y };

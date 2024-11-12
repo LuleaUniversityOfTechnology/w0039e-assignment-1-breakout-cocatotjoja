@@ -2,6 +2,7 @@
 #include "Game.h"
 
 
+//Struct containing position and size values for Paddle
 struct Paddle
 {
 	Play::Point2D position = { DISPLAY_WIDTH/2, 20 };
