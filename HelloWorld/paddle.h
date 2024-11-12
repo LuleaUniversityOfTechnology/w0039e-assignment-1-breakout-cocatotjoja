@@ -1,6 +1,6 @@
 #pragma once
-#include "Constants.h"
-#include "Play.h"
+#include "Game.h"
+
 
 struct Paddle
 {
@@ -9,6 +9,8 @@ struct Paddle
 	int height = 8;
 };
 
-void MovePaddle(Paddle& paddle, float elapsedTime);
+void MovePaddle(Paddle& paddle, float translationX);
 
 void DrawPaddle(Paddle& paddle);
+
+bool IsBounce(const Paddle& paddle, const Play::GameObject& obj);
