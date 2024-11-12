@@ -32,7 +32,7 @@ void StepFrame(float timePassed)
 	const std::vector<int> brickIds = Play::CollectGameObjectIDsByType(TYPE_BRICK);
 	for (int i = 0; i < brickIds.size(); i++)
 	{
-		Play::UpdateGameObject(Play::GetGameObject(ballIds[i]));
+		Play::UpdateGameObject(Play::GetGameObject(brickIds[i]));
 		Play::DrawObject(Play::GetGameObject(brickIds[i]));
 	}
 }
@@ -44,7 +44,7 @@ void SetupScene()
 	{
 		for (int y = DISPLAY_HEIGHT; y > 0; y--)
 		{
-			Play::CreateGameObject(ObjectType::TYPE_BRICK, { x, y }, 6, "brick");
+			const int objectId = Play::CreateGameObject(ObjectType::TYPE_BRICK, { x, y }, 6, "brick");
 		}
 	}
 }
