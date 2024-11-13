@@ -31,9 +31,9 @@ float Min(float a, float b)
 //Function that creates a ball
 void SpawnBall()
 {
-	const int objectId = Play::CreateGameObject(ObjectType::TYPE_BALL, { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT - 350 }, 4, "ball");
+	const int objectId = Play::CreateGameObject(ObjectType::TYPE_BALL, { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT - 200 }, 4, "ball");
 	GameObject& ball = Play::GetGameObject(objectId);
-	ball.velocity = normalize({ 1, 1 }) * ballSpeed;
+	ball.velocity = normalize({ -1, -1 }) * ballSpeed;
 }
 
 
@@ -47,12 +47,12 @@ void StepFrame(float timePassed)
 	//Checks for user input and update paddle position
 	if (Play::KeyDown(Play::KEY_RIGHT))
 	{
-		MovePaddle(paddle, 2.0);
+		MovePaddle(paddle, 3.0);
 	}
 
 	if (Play::KeyDown(Play::KEY_LEFT))
 	{
-		MovePaddle(paddle, -2.0);
+		MovePaddle(paddle, -3.0);
 	}
 
 	DrawPaddle(paddle);
@@ -69,7 +69,7 @@ void StepFrame(float timePassed)
 			if (Play::IsColliding(currentBrick, currentBall))
 			{
 				Play::DestroyGameObject(brick);
-				currentBall.velocity *= -1;
+				currentBall.velocity.y *= -1;
 			}
 		}
 		
@@ -94,7 +94,7 @@ void StepFrame(float timePassed)
 			obj_ball.velocity.x *= -1;
 		}
 
-		if ((obj_ball.pos.y > DISPLAY_HEIGHT-5) || (obj_ball.pos.y < 0))
+		if (obj_ball.pos.y > DISPLAY_HEIGHT-5)
 		{
 			obj_ball.velocity.y *= -1;
 		}
