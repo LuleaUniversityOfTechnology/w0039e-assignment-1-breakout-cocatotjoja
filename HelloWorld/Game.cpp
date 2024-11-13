@@ -8,6 +8,26 @@
 Paddle paddle;
 
 
+//Funktion that checks which value is larger, takes two floats as arguments, returns the larger float
+float Max(float a, float b)
+{
+	if (a > b)
+		return a;
+	else
+		return b;
+}
+
+//Funktion that checks which value is larger, takes two floats as arguments, returns the smaller float
+float Min(float a, float b)
+{
+	if (a < b)
+		return a;
+	else
+		return b;
+}
+
+
+
 //Function that creates a ball
 void SpawnBall()
 {

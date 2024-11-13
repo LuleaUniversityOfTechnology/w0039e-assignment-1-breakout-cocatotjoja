@@ -9,3 +9,11 @@ void SpawnBall();
 void StepFrame(float timePassed);
 
 void SetupScene();
+
+//Funktion that checks which value is larger, takes two floats as arguments, returns the larger float
+float Max(float a, float b);
+
+
+//Funktion that checks which value is larger, takes two floats as arguments, returns the smaller float
+float Min(float a, float b);
+
