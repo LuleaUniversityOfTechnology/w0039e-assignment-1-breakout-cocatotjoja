@@ -20,7 +20,7 @@ bool MainGameUpdate( float elapsedTime )
 	return Play::KeyDown(Play::KEY_ESCAPE );
 }
 
-// Gets called once when the player quits the game 
+// Gets called once when the player quits the game
 int MainGameExit( void )
 {
 	Play::DestroyManager();
