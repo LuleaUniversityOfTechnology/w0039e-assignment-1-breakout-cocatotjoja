@@ -38,7 +38,7 @@ void SpawnBall()
 
 
 //Function that loops through the different game objects and updates and renders them to the viewport, takes a float as argument
-void StepFrame(float timePassed)
+void StepFrame(float timePassed, int & scoreCounter)
 {
 	//Make a list of the different ObjectTypes
 	const std::vector<int> brickIds = Play::CollectGameObjectIDsByType(TYPE_BRICK);
@@ -70,9 +70,12 @@ void StepFrame(float timePassed)
 			{
 				Play::DestroyGameObject(brick);
 				currentBall.velocity.y *= -1;
+				scoreCounter++;
 			}
 		}
 		
+		std::string strCount = std::to_string(scoreCounter);
+		Play::DrawDebugText({ 20, DISPLAY_HEIGHT - 10 }, strCount.c_str());
 
 		Play::UpdateGameObject(Play::GetGameObject(brick));
 		Play::DrawObject(Play::GetGameObject(brick));
@@ -97,6 +100,11 @@ void StepFrame(float timePassed)
 		if (obj_ball.pos.y > DISPLAY_HEIGHT-5)
 		{
 			obj_ball.velocity.y *= -1;
+		}
+
+		if (obj_ball.pos.y < 0)
+		{
+			//NO
 		}
 
 		Play::UpdateGameObject(Play::GetGameObject(ball));

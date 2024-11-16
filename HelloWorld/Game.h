@@ -6,7 +6,7 @@
 
 void SpawnBall();
 
-void StepFrame(float timePassed);
+void StepFrame(float timePassed, int& scoreCounter);
 
 void SetupScene();
 

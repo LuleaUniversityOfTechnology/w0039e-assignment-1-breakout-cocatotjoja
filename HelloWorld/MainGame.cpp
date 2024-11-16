@@ -1,6 +1,6 @@
 #include "Game.h"
 
-//TEST
+int scoreCounter = 0;
 
 
 // The entry point for a PlayBuffer program
@@ -15,7 +15,7 @@ void MainGameEntry( PLAY_IGNORE_COMMAND_LINE )
 bool MainGameUpdate( float elapsedTime )
 {
 	Play::ClearDrawingBuffer( Play::cBlack );
-	StepFrame(elapsedTime);
+	StepFrame(elapsedTime, scoreCounter);
 	Play::PresentDrawingBuffer();
 	return Play::KeyDown(Play::KEY_ESCAPE );
 }
