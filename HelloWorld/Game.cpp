@@ -7,6 +7,18 @@
 
 Paddle paddle;
 
+// Array for top Scores
+unsigned int topScore[] = {1, 2, 3, 4, 5};
+
+void HighScore()
+{
+	std::sort(std::begin(topScore), std::end(topScore), greater<>());
+	for (int i = 0; i < sizeof(topScore); i++)
+	{
+
+	}
+}
+
 
 //Funktion that checks which value is larger, takes two floats as arguments, returns the larger float
 float Max(float a, float b)
