@@ -6,16 +6,42 @@
 
 
 Paddle paddle;
+unsigned int scoreCounter = 0;
 
 // Array for top Scores
-unsigned int topScore[] = {1, 2, 3, 4, 5};
+unsigned int topScore[5] = {1, 2, 3, 4, 5};
 
-void HighScore()
+
+//Sorts High Score array
+void sortArray()
 {
 	std::sort(std::begin(topScore), std::end(topScore), greater<>());
-	for (int i = 0; i < sizeof(topScore); i++)
-	{
+}
 
+
+//Prints top five Saved High Scores
+void HighScore()
+{
+	int newRow = 100;
+
+	Play::DrawDebugText({ DISPLAY_WIDTH - 60, 120 }, "High Scores");
+	for (int i = 0; i < 5; i++)
+	{
+		std::string strScore = std::to_string(topScore[i]);
+		Play::DrawDebugText({ DISPLAY_WIDTH - 50, newRow }, strScore.c_str());
+		newRow -= 20;
+	}
+}
+
+//Updates array with new high score at end of game
+void ArrUppd()
+{
+	if (scoreCounter > topScore[4])
+	{
+		topScore[4] = scoreCounter;
+		scoreCounter = 0;
+
+		std::sort(std::begin(topScore), std::end(topScore), greater<>());
 	}
 }
 
@@ -50,12 +76,17 @@ void SpawnBall()
 
 
 //Function that loops through the different game objects and updates and renders them to the viewport, takes a float as argument
-void StepFrame(float timePassed, int & scoreCounter)
+void StepFrame(float timePassed)
 {
 	//Make a list of the different ObjectTypes
 	const std::vector<int> brickIds = Play::CollectGameObjectIDsByType(TYPE_BRICK);
 	const std::vector<int> ballIds = Play::CollectGameObjectIDsByType(TYPE_BALL);
 
+	
+	
+	HighScore();
+	
+	
 	//Checks for user input and update paddle position
 	if (Play::KeyDown(Play::KEY_RIGHT))
 	{
@@ -87,7 +118,7 @@ void StepFrame(float timePassed, int & scoreCounter)
 		}
 		
 		std::string strCount = std::to_string(scoreCounter);
-		Play::DrawDebugText({ 20, DISPLAY_HEIGHT - 10 }, strCount.c_str());
+		Play::DrawDebugText({ 20, 20 }, strCount.c_str());
 
 		Play::UpdateGameObject(Play::GetGameObject(brick));
 		Play::DrawObject(Play::GetGameObject(brick));
@@ -116,7 +147,7 @@ void StepFrame(float timePassed, int & scoreCounter)
 
 		if (obj_ball.pos.y < 0)
 		{
-			//NO
+			ArrUppd();
 		}
 
 		Play::UpdateGameObject(Play::GetGameObject(ball));

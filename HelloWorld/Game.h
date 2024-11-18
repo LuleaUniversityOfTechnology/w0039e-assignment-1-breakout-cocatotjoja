@@ -6,7 +6,7 @@
 
 void SpawnBall();
 
-void StepFrame(float timePassed, int& scoreCounter);
+void StepFrame(float timePassed);
 
 void SetupScene();
 
@@ -18,4 +18,8 @@ float Max(float a, float b);
 float Min(float a, float b);
 
 void HighScore();
+
+void ArrUppd();
+
+void sortArray();
 
