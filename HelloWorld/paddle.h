@@ -10,6 +10,10 @@ struct Paddle
 	int height = 8;
 };
 
+
+
+void resetPaddle(Paddle& paddle);
+
 void MovePaddle(Paddle& paddle, float translationX);
 
 void DrawPaddle(Paddle& paddle);

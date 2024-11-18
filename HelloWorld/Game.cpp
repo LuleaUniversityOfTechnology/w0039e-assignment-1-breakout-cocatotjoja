@@ -12,6 +12,26 @@ unsigned int scoreCounter = 0;
 unsigned int topScore[5] = {1, 2, 3, 4, 5};
 
 
+
+//Funktion that checks which value is larger, takes two floats as arguments, returns the larger float
+float Max(float a, float b)
+{
+	if (a > b)
+		return a;
+	else
+		return b;
+}
+
+//Funktion that checks which value is larger, takes two floats as arguments, returns the smaller float
+float Min(float a, float b)
+{
+	if (a < b)
+		return a;
+	else
+		return b;
+}
+
+
 //Sorts High Score array
 void sortArray()
 {
@@ -46,23 +66,18 @@ void ArrUppd()
 }
 
 
-//Funktion that checks which value is larger, takes two floats as arguments, returns the larger float
-float Max(float a, float b)
+
+
+
+void resetScene()
 {
-	if (a > b)
-		return a;
-	else
-		return b;
+	Play::DestroyGameObjectsByType(TYPE_BALL);
+	Play::DestroyGameObjectsByType(TYPE_BRICK);
+	resetPaddle(paddle);
+	SetupScene();
+	SpawnBall();
 }
 
-//Funktion that checks which value is larger, takes two floats as arguments, returns the smaller float
-float Min(float a, float b)
-{
-	if (a < b)
-		return a;
-	else
-		return b;
-}
 
 
 
@@ -73,6 +88,24 @@ void SpawnBall()
 	GameObject& ball = Play::GetGameObject(objectId);
 	ball.velocity = normalize({ -1, -1 }) * ballSpeed;
 }
+
+
+
+// Function that creates the bricks
+void SetupScene()
+{
+	for (int x = 6; x < DISPLAY_WIDTH - 5; x += 17)
+	{
+		for (int y = DISPLAY_HEIGHT - 15; y > 200; y -= 11)
+		{
+			const int objectId = Play::CreateGameObject(ObjectType::TYPE_BRICK, { x, y }, 6, "brick");
+		}
+	}
+}
+
+
+
+
 
 
 //Function that loops through the different game objects and updates and renders them to the viewport, takes a float as argument
@@ -148,23 +181,10 @@ void StepFrame(float timePassed)
 		if (obj_ball.pos.y < 0)
 		{
 			ArrUppd();
+			resetScene();
 		}
 
 		Play::UpdateGameObject(Play::GetGameObject(ball));
 		Play::DrawObject(Play::GetGameObject(ball));
-	}
-}
-
-
-
-// Function that creates the bricks
-void SetupScene()
-{
-	for (int x = 6; x < DISPLAY_WIDTH-5; x+=17)
-	{
-		for (int y = DISPLAY_HEIGHT-15; y > 200; y-=11)
-		{
-			const int objectId = Play::CreateGameObject(ObjectType::TYPE_BRICK, { x, y }, 6, "brick");
-		}
 	}
 }

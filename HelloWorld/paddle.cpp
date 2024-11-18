@@ -1,6 +1,15 @@
 #include "paddle.h"
 
 
+
+//Resets Paddle Position
+void resetPaddle(Paddle& paddle)
+{
+	paddle.position.x = DISPLAY_WIDTH / 2;
+}
+
+
+
 //Function to update paddle position, takes a Paddle and a float value as arguments
 void MovePaddle(Paddle& paddle, float translationX)
 {
