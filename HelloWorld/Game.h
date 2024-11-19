@@ -12,17 +12,56 @@ float Max(float a, float b);
 float Min(float a, float b);
 
 
-void SpawnBall();
 
-void StepFrame(float timePassed);
+//Innitiate Array
+void innitArray();
 
-void SetupScene();
 
-void resetScene();
+//Creates file with scores from array
+void createFile();
 
-void HighScore();
 
-void ArrUppd();
+//Check nr of lines in file
+int lineCount();
 
+
+//Create array from file
+void createArray();
+
+
+//Delete Array
+void deleteArray();
+
+
+//Sorts High Score array
 void sortArray();
 
+
+//Updates array with new high score at end of game
+void ArrUppd();
+
+
+//Prints top five Saved High Scores
+void HighScore();
+
+
+
+
+//Resets the Bricks, Ball, and Paddle
+void resetScene();
+
+
+// Function that creates the bricks
+void SetupScene();
+
+
+//Function that creates a ball
+void SpawnBall();
+
+
+
+
+
+
+//Function that loops through the different game objects and updates and renders them to the viewport, takes a float as argument
+void StepFrame(float timePassed);

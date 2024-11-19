@@ -3,13 +3,15 @@
 #include "Play.h"
 #include "Game.h"
 #include "paddle.h"
+#include <fstream>
 
 
 Paddle paddle;
 unsigned int scoreCounter = 0;
 
 // Array for top Scores
-unsigned int topScore[5] = {1, 2, 3, 4, 5};
+unsigned int* topScore;
+
 
 
 
@@ -32,10 +34,80 @@ float Min(float a, float b)
 }
 
 
+
+
+
+void createFile()
+{
+	std::ofstream scoreFile("Scores.txt");  //Open file for writing
+	int nrLines = lineCount();
+	
+	for (int i = 0; i<nrLines; i++)
+	{
+		std::string strScore = std::to_string(topScore[i]);
+		scoreFile << strScore<<endl;
+	}
+	scoreFile.close();
+}
+
+
+//Counts number of lines in file
+int lineCount()
+{
+	std::ifstream scoreFile("Scores.txt");  //Open file for reading
+	int count = 0;
+	if (scoreFile.is_open())
+	{
+		std::string line;
+
+		while (std::getline(scoreFile, line))
+		{
+			count++;
+		}
+	}
+	scoreFile.close();
+	return count;
+}
+
+
+void createArray()
+{
+	std::ifstream scoreFile("Scores.txt"); //Open file for reading
+	int nrLines = lineCount();
+	topScore = new unsigned int[nrLines+1];
+
+	for (int i = 0; i < (nrLines - 1); i++)
+	{
+		scoreFile >> topScore[i];
+	}
+	sortArray();
+}
+
+
+void deleteArray()
+{
+	delete[] topScore;
+}
+
+
 //Sorts High Score array
 void sortArray()
 {
-	std::sort(std::begin(topScore), std::end(topScore), greater<>());
+	std::sort(topScore, topScore+lineCount(), greater<>());
+}
+
+
+//Updates array with new high score at end of game
+void ArrUppd()
+{
+	if (scoreCounter > topScore[4])
+	{
+		topScore[4] = scoreCounter;
+		scoreCounter = 0;
+
+
+		sortArray();
+	}
 }
 
 
@@ -53,22 +125,10 @@ void HighScore()
 	}
 }
 
-//Updates array with new high score at end of game
-void ArrUppd()
-{
-	if (scoreCounter > topScore[4])
-	{
-		topScore[4] = scoreCounter;
-		scoreCounter = 0;
-
-		std::sort(std::begin(topScore), std::end(topScore), greater<>());
-	}
-}
 
 
 
-
-
+//Resets the Bricks, Ball, and Paddle
 void resetScene()
 {
 	Play::DestroyGameObjectsByType(TYPE_BALL);
@@ -77,18 +137,6 @@ void resetScene()
 	SetupScene();
 	SpawnBall();
 }
-
-
-
-
-//Function that creates a ball
-void SpawnBall()
-{
-	const int objectId = Play::CreateGameObject(ObjectType::TYPE_BALL, { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT - 200 }, 4, "ball");
-	GameObject& ball = Play::GetGameObject(objectId);
-	ball.velocity = normalize({ -1, -1 }) * ballSpeed;
-}
-
 
 
 // Function that creates the bricks
@@ -101,6 +149,15 @@ void SetupScene()
 			const int objectId = Play::CreateGameObject(ObjectType::TYPE_BRICK, { x, y }, 6, "brick");
 		}
 	}
+}
+
+
+//Function that creates a ball
+void SpawnBall()
+{
+	const int objectId = Play::CreateGameObject(ObjectType::TYPE_BALL, { DISPLAY_WIDTH / 2, DISPLAY_HEIGHT - 200 }, 4, "ball");
+	GameObject& ball = Play::GetGameObject(objectId);
+	ball.velocity = normalize({ -1, -1 }) * ballSpeed;
 }
 
 
@@ -181,6 +238,9 @@ void StepFrame(float timePassed)
 		if (obj_ball.pos.y < 0)
 		{
 			ArrUppd();
+			createFile();
+			deleteArray();
+			createArray();
 			resetScene();
 		}
 
