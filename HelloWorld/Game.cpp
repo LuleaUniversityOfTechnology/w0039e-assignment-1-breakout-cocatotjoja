@@ -12,6 +12,9 @@ unsigned int scoreCounter = 0;
 // Array for top Scores
 unsigned int* topScore;
 
+//Number of lines in file
+int nrLines;
+
 
 
 
@@ -37,19 +40,6 @@ float Min(float a, float b)
 
 
 
-void createFile()
-{
-	std::ofstream scoreFile("Scores.txt");  //Open file for writing
-	int nrLines = lineCount();
-	
-	for (int i = 0; i<nrLines; i++)
-	{
-		std::string strScore = std::to_string(topScore[i]);
-		scoreFile << strScore<<endl;
-	}
-	scoreFile.close();
-}
-
 
 //Counts number of lines in file
 int lineCount()
@@ -70,23 +60,43 @@ int lineCount()
 }
 
 
+void createFile()
+{
+	std::ofstream scoreFile("Scores.txt");  //Open file for writing
+	
+	for (int i = 0; i <= nrLines; i++)
+	{
+		std::string strScore = std::to_string(topScore[i]);
+		scoreFile << strScore << endl;
+	}
+	scoreFile.close();
+}
+
+
+
+
 void createArray()
 {
+	nrLines = lineCount();
 	std::ifstream scoreFile("Scores.txt"); //Open file for reading
-	int nrLines = lineCount();
 	topScore = new unsigned int[nrLines+1];
 
-	for (int i = 0; i < (nrLines - 1); i++)
+	for (int i = 0; i < nrLines; i++)
 	{
-		scoreFile >> topScore[i];
+		std::string scoreS;
+		scoreFile >> scoreS;
+		int score = stoi(scoreS);
+		topScore[i] = score;
 	}
 	sortArray();
+	scoreFile.close();
 }
 
 
 void deleteArray()
 {
 	delete[] topScore;
+	topScore = nullptr;
 }
 
 
@@ -100,14 +110,10 @@ void sortArray()
 //Updates array with new high score at end of game
 void ArrUppd()
 {
-	if (scoreCounter > topScore[4])
-	{
-		topScore[4] = scoreCounter;
-		scoreCounter = 0;
-
-
-		sortArray();
-	}
+	topScore[nrLines] = scoreCounter;
+	scoreCounter = 0;
+	nrLines++;
+	sortArray();
 }
 
 
