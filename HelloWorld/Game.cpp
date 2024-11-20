@@ -64,7 +64,7 @@ void createFile()
 {
 	std::ofstream scoreFile("Scores.txt");  //Open file for writing
 	
-	for (int i = 0; i <= nrLines; i++)
+	for (int i = 0; i < nrLines; i++)
 	{
 		std::string strScore = std::to_string(topScore[i]);
 		scoreFile << strScore << endl;
@@ -103,7 +103,7 @@ void deleteArray()
 //Sorts High Score array
 void sortArray()
 {
-	std::sort(topScore, topScore+lineCount(), greater<>());
+	std::sort(topScore, topScore+nrLines, greater<>());
 }
 
 
