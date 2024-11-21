@@ -13,8 +13,6 @@ float Min(float a, float b);
 
 
 
-//Innitiate Array
-void innitArray();
 
 
 //Creates file with scores from array
