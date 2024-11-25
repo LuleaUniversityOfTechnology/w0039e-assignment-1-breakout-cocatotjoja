@@ -107,7 +107,37 @@ void sortArray()
 }
 
 
-//Updates array with new high score at end of game
+//Adds current score to array
+void ArrAdd()
+{
+	topScore[nrLines] = scoreCounter;
+	scoreCounter = 0;
+	nrLines++;
+	unsigned int* tempArray = new unsigned int[nrLines];
+
+	for (int i = 0; i < nrLines; i++)
+	{
+		tempArray[i] = topScore[i];
+	}
+
+	deleteArray();
+
+	topScore = new unsigned int[nrLines + 1];
+
+	for (int i = 0; i < nrLines; i++)
+	{
+		topScore[i] = tempArray[i];
+	}
+
+	delete[] tempArray;
+	tempArray = nullptr;
+
+	sortArray();
+
+}
+
+
+//Updates array with new high score at end of game(LEGACY)
 void ArrUppd()
 {
 	topScore[nrLines] = scoreCounter;
@@ -243,10 +273,7 @@ void StepFrame(float timePassed)
 
 		if (obj_ball.pos.y < 0)
 		{
-			ArrUppd();
-			createFile();
-			deleteArray();
-			createArray();
+			ArrAdd();
 			resetScene();
 		}
 

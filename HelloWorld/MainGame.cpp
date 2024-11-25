@@ -25,6 +25,7 @@ bool MainGameUpdate( float elapsedTime )
 // Gets called once when the player quits the game
 int MainGameExit( void )
 {
+	createFile();
 	deleteArray();
 	Play::DestroyManager();
 	return PLAY_OK;

@@ -35,6 +35,10 @@ void deleteArray();
 void sortArray();
 
 
+//Adds current score to array
+void ArrAdd();
+
+
 //Updates array with new high score at end of game
 void ArrUppd();
 
